@@ -1,0 +1,38 @@
+.newTask {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: 8px;
+}
+
+.newTask input {
+    width: 100%;
+    padding: 1rem;
+    background: var(--gray-500);
+    color: var(--gray-300);
+    border: 1px solid var(--gray-700);
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 400;
+
+    outline: none;
+}
+
+.newTask button {
+    padding: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    background: var(--blue-dark);
+    color: var(--gray-100);
+    border: 0px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 400;
+}
