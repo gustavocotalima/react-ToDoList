@@ -3,6 +3,7 @@ import styles from './TaskList.module.css';
 
 import clipboardImg from '../assets/clipboard.svg';
 import { Task } from './Task';
+import { NewTask } from './newTask';
 
 
 
@@ -21,11 +22,23 @@ export function TaskList(){
         ]
     );
 
+    const [newTaskId, setNewTaskId] = useState(3);
+    
+    function newTask(task: string){
+        setTasks([...tasks, {id: newTaskId, isComplete: false, task: task}]);
+        setNewTaskId(newTaskId+1);
+    }
+
     function deleteTask(id: number) {
         setTasks(tasks.filter(task => task.id !== id));
     }
+    function changeTaskState(id: number) {
+        setTasks(tasks.map(task => (task.id === id ? {...task, isComplete: !task.isComplete} : task)));
+    }
 
     return (
+        <>
+        <NewTask onNewTask={newTask}/>
         <div className={styles.container}>
             <div className={styles.tasksCounter}>
                 <p>Tarefas criadas<span>{tasks.length}</span></p>
@@ -41,10 +54,17 @@ export function TaskList(){
             <div className={styles.tasksList}>
                 {tasks.map(task =>  { 
                     return (
-                        <Task key={task.id} id={task.id} isComplete={task.isComplete} task={task.task} onDeleteTask={deleteTask}/>
+                        <Task 
+                            key={task.id} 
+                            id={task.id} 
+                            isComplete={task.isComplete} 
+                            task={task.task} 
+                            onDeleteTask={deleteTask} 
+                            onChangeTaskState={changeTaskState}/>
                     )
                 })}
             </div>
         </div>
+        </>
     );
 }

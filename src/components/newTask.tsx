@@ -1,18 +1,43 @@
 import { PlusCircle } from 'phosphor-react';
-import { FormEvent } from 'react';
+import { ChangeEvent, FormEvent, InvalidEvent, useState } from 'react';
 import styles from './newTask.module.css';
 
-export function NewTask() {
+interface TaskProps {
+    onNewTask: (task: string) => void;
+}
+
+export function NewTask({onNewTask}: TaskProps) {
+
+    const [newTaskText, setNewTaskText] = useState('');
+
+    const isNewTaskTextEmpty = newTaskText.length===0;
 
     function handleCreateNewTask(event: FormEvent){
         event.preventDefault();
-        console.log('new task');
+        onNewTask(newTaskText);
+        setNewTaskText('');
+    }
+
+    function handleNewTaskChange(event: ChangeEvent<HTMLInputElement>) {
+        event.target.setCustomValidity('');
+        setNewTaskText(event.target.value);
+    }
+
+    function handleNewTaskInvalid(event: InvalidEvent<HTMLInputElement>) {
+        event.target.setCustomValidity("Comentário inválido");
     }
 
     return (
         <form className={styles.newTask} onSubmit={handleCreateNewTask}>
-            <input type="text" placeholder="Adicione uma nova tarefa" />
-            <button type='submit'>Criar <PlusCircle/> </button>
+            <input 
+                placeholder="Adicione uma nova tarefa" 
+                value={newTaskText}
+                onChange={handleNewTaskChange} 
+                onInvalid={handleNewTaskInvalid}
+                required
+                
+                />
+            <button type='submit' disabled={isNewTaskTextEmpty}>Criar <PlusCircle/> </button>
         </form>
     );
 }

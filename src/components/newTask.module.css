@@ -35,4 +35,16 @@
     border-radius: 8px;
     font-size: 1rem;
     font-weight: 400;
+
+    transition: all 0.2s ease-in-out;
 }
+
+.newTask button:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+.newTask button:not(:disabled):hover {
+    background: var(--blue);
+}
+
