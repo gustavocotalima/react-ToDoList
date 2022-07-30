@@ -5,24 +5,16 @@ import clipboardImg from '../assets/clipboard.svg';
 import { Task } from './Task';
 import { NewTask } from './newTask';
 
-
+interface Task {
+    id: number,
+    isComplete: boolean,
+    task: string
+}
 
 export function TaskList(){
-    const [tasks, setTasks] = useState([
-        {
-            id: 1,
-            isComplete: false,
-            task: 'aaLorem ipsum dolor sit amet consectetur adipisicing elit. Repellat fugit, consequatur numquam et maxime inventore! Alias vitae dicta culpa?'
-        },
-        {
-            id: 2,
-            isComplete: true,
-            task: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat fugit, consequatur numquam et maxime inventore! Alias vitae dicta culpa?'
-        },
-        ]
-    );
+    const [tasks, setTasks] = useState(Array<Task>());
 
-    const [newTaskId, setNewTaskId] = useState(3);
+    const [newTaskId, setNewTaskId] = useState(1);
     
     function newTask(task: string){
         setTasks([...tasks, {id: newTaskId, isComplete: false, task: task}]);
